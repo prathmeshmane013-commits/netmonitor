@@ -1,9 +1,11 @@
-import axios from 'axios';
+import axios from "axios";
 
-const api = axios.create({ baseURL: '/api' });
+const api = axios.create({
+  baseURL: "https://netmonitor-0f5z.onrender.com/api",
+});
 
 api.interceptors.request.use((config) => {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem("token");
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
@@ -11,11 +13,11 @@ api.interceptors.request.use((config) => {
 });
 
 export const login = (username, password) =>
-  api.post('/auth/login', { username, password });
+  api.post("/auth/login", { username, password });
 
-export const getServices = () => api.get('/services');
+export const getServices = () => api.get("/services");
 export const getService = (id) => api.get(`/services/${id}`);
-export const createService = (data) => api.post('/services', data);
+export const createService = (data) => api.post("/services", data);
 export const updateService = (id, data) => api.put(`/services/${id}`, data);
 export const deleteService = (id) => api.delete(`/services/${id}`);
 export const getHistory = (id, hours = 24) =>
